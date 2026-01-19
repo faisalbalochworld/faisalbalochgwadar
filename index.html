@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAISAL BALOCH | Portfolio - Ethical Hacker & Developer</title>
+    
+    Google Fonts
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        
+        :root {
+            --primary-color: #00f3ff;
+            --secondary-color: #bc13fe; 
+            --bg-dark: #0a0a0a;
+            --bg-card: rgba(255, 255, 255, 0.05);
+            --text-main: #ffffff;
+            --text-muted: #b3b3b3;
+            --font-main: 'Poppins', sans-serif;
+            --font-tech: 'Orbitron', sans-serif;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none; 
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+       
+        .cursor-dot,
+        .cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary-color);
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--primary-color);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+
+        body:hover .cursor-outline {
+            background-color: rgba(0, 243, 255, 0.1);
+        }
+
+        
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--primary-color), var(--secondary-color));
+            border-radius: 5px;
+        }
+
+        
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo {
+            font-family: var(--font-tech);
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--text-main);
+        }
+
+        
+        #home {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0 10%;
+            overflow: hidden;
+        }
+
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        .hero-content {
+            z-index: 1;
+            max-width: 600px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .hero-title {
+            font-family: var(--font-tech);
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, #b3b3b3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 243, 255, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(188, 19, 254, 0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            margin-left: 15px;
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background: rgba(0, 243, 255, 0.1);
+        }
+
+       
+        .bg-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -2;
+        }
+
+        .shape {
+            position: absolute;
+            filter: blur(50px);
+            opacity: 0.4;
+            animation: float 10s infinite alternate;
+        }
+
+        .shape-1 {
+            top: -10%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: var(--primary-color);
+            border-radius: 50%;
+        }
+
+        .shape-2 {
+            bottom: -10%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: var(--secondary-color);
+            border-radius: 50%;
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(30px, 50px) rotate(20deg); }
+        }
+
+        
+        section {
+            padding: 100px 10%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: var(--font-tech);
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 3px;
+            bottom: -10px;
+            left: 20%;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+        }
+
+        
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-img-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .about-img {
+            width: 100%;
+            border-radius: 20px;
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+            position: relative;
+            z-index: 2;
+        }
+
+        
+        .svg-frame {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            border: 2px dashed var(--secondary-color);
+            border-radius: 20px;
+            animation: spin 20s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .skill-item {
+            background: var(--bg-card);
+            padding: 15px;
+            text-align: center;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: var(--transition);
+        }
+
+        .skill-item:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .skill-item i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+
+       
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .project-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            
+            background: linear-gradient(45deg, #1a1a1a, #2a2a2a); 
+        }
+
+        .project-info {
+            padding: 20px;
+        }
+
+        .project-info h4 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-size: 0.8rem;
+            color: var(--primary-color);
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .project-link:hover {
+            color: var(--primary-color);
+        }
+
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .contact-info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: var(--bg-card);
+            border-radius: 10px;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-right: 20px;
+        }
+
+        .contact-details h5 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .contact-details p, .contact-details a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 300px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 20px;
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+       
+        footer {
+            background: #050505;
+            padding: 40px 10%;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .social-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+
+        .social-btn:hover {
+            background: var(--primary-color);
+            color: #000;
+            transform: scale(1.1);
+        }
+
+        #notification {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: var(--secondary-color);
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 16px;
+            position: fixed;
+            z-index: 10000;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            font-size: 1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        #notification.show {
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        @keyframes fadein {
+            from {bottom: 0; opacity: 0;}
+            to {bottom: 30px; opacity: 1;}
+        }
+
+        @keyframes fadeout {
+            from {bottom: 30px; opacity: 1;}
+            to {bottom: 0; opacity: 0;}
+        }
+
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                top: 70px;
+                height: calc(100vh - 70px);
+                background: #000;
+                flex-direction: column;
+                width: 100%;
+                align-items: center;
+                justify-content: center;
+                transition: 0.5s;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .about-container, .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    
+    <div class="cursor-dot" data-cursor-dot></div>
+    <div class="cursor-outline" data-cursor-outline></div>
+
+   
+    <div class="bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+    </div>
+
+    
+    <nav>
+        <div class="logo">Faisal <span>Baloch</span></div>
+        <div class="menu-toggle" id="mobile-menu">
+            <i class="fas fa-bars"></i>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    
+    <section id="home">
+       
+        <div id="canvas-container"></div>
+
+        <div class="hero-content">
+            <p class="hero-subtitle">Welcome to my Portfolio</p>
+            <h1 class="hero-title">I am Faisal Baloch</h1>
+            <p class="hero-description">
+                Professional Website Developer, App Developer & Ethical Hacker. 
+                I create 3D animations, secure systems, and high-performance UI/UX designs.
+            </p>
+            <div class="cta-buttons">
+                <a href="#projects" class="btn">View Projects</a>
+                <a href="#contact" class="btn btn-outline">Contact Me</a>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-container">
+            <div class="about-img-wrapper">
+                
+                <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExOThhdGxkYWZkeXdsY2Y0bXhqZm54dHNrMzFhY3NsYzQwczVua3RtZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qgQUggAC3Pfv687qPC/giphy.gif" alt="Faisal Baloch" class="about-img">
+                <svg class="svg-frame" viewBox="0 0 100 100">
+                    <path id="circle" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="none" stroke="#bc13fe" stroke-width="2" stroke-dasharray="10 5" />
+                </svg>
+            </div>
+            <div class="about-text">
+                <h3>Multi-Experience Professional</h3>
+                <p>
+                    I am a passionate developer based in Gwadar. With extensive experience in Web Development, 
+                    Mobile Applications, and Cybersecurity, I bring ideas to life with code. 
+                    I specialize in creating immersive user experiences using 3D animations and modern UI/UX principles.
+                </p>
+                <br>
+                <p>
+                    Whether it's building secure ethical hacking tools or designing fluid 3D web interfaces, 
+                    I deliver professional results tailored to modern standards.
+                </p>
+
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <i class="fab fa-java"></i>
+                        <p>Java</p>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fab fa-js"></i>
+                        <p>JavaScript</p>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-cube"></i>
+                        <p>3D Animation</p>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-user-secret"></i>
+                        <p>Ethical Hacking</p>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-pencil-ruler"></i>
+                        <p>UI/UX</p>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-mobile-alt"></i>
+                        <p>App Dev</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="projects">
+        <h2 class="section-title">My Projects</h2>
+        <div class="projects-grid">
+            
+            
+            <div class="project-card">
+                <img src="./Gwadar Luxury Watches 2.png" alt="Gwadar Online Shopping" class="project-img">
+                <div class="project-info">
+                    <div class="project-tags">
+                        <span>E-Commerce</span>
+                        <span>Web Design</span>
+                    </div>
+                    <h4>Gwadar Online Shopping</h4>
+                    <p>A complete online shopping platform designed for the local market of Gwadar.</p>
+                    <br>
+                    <a href="https://gwadaronlineshopping.webnode.page/" target="_blank" class="project-link">
+                        Visit Website <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            
+            <div class="project-card">
+                <img src="./Gun 1.png" alt="Gwadar Guns" class="project-img">
+                <div class="project-info">
+                    <div class="project-tags">
+                        <span>Inventory</span>
+                        <span>Listing</span>
+                    </div>
+                    <h4>Gwadar Guns</h4>
+                    <p>A professional inventory and listing website for arms dealers, featuring secure UI.</p>
+                    <br>
+                    <a href="https://gwadarguns.netlify.app/" target="_blank" class="project-link">
+                        Visit Website <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            
+            <div class="project-card">
+                <img src="./Gwadar Online Shop 1.jpg" alt="Gwadar Online Shop" class="project-img">
+                <div class="project-info">
+                    <div class="project-tags">
+                        <span>Store</span>
+                        <span>Marketing</span>
+                    </div>
+                    <h4>Gwadar Online Shop</h4>
+                    <p>Strikingly based shop for easy product showcasing and customer acquisition.</p>
+                    <br>
+                    <a href="https://gwadaronlineshop.mystrikingly.com/" target="_blank" class="project-link">
+                        Visit Website <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    
+    <section id="contact">
+        <h2 class="section-title">Contact Me</h2>
+        <div class="contact-container">
+            
+            
+            <div class="contact-details-wrapper">
+                <div class="contact-info-item">
+                    <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                    <div class="contact-details">
+                        <h5>Email Me</h5>
+                        <p>faisalbaloch.smit@gmail.com</p> 
+                    </div>
+                </div>
+
+                <div class="contact-info-item">
+                    <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+                    <div class="contact-details">
+                        <h5>WhatsApp</h5>
+                        
+                        <a href="https://wa.me/923411019996" target="_blank">Chat with me</a>
+                    </div>
+                </div>
+
+                <div class="contact-info-item">
+                    <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div class="contact-details">
+                        <h5>Location</h5>
+                        <p>Gwadar City, Pakistan</p>
+                    </div>
+                </div>
+
+                
+                <div style="margin-top: 30px;">
+                    <a href="https://wa.me/923001234567" target="_blank" class="btn" style="background: #25D366;">
+                        <i class="fab fa-whatsapp"></i> Chat Now
+                    </a>
+                </div>
+            </div>
+
+           
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29060.63379800837!2d62.315!3d25.122!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e66fdf672d0465f%3A0x6c0c04e619e00f84!2sGwadar%2C%20Balochistan%2C%20Pakistan!5e0!3m2!1sen!2s!4v1620000000000!5m2!1sen!2s" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    
+    <footer>
+        <div class="social-links">
+            <a href="https://www.facebook.com/faisalbezanjobaloch" target="_blank" class="social-btn">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://www.youtube.com/smitkarachi" target="_blank" class="social-btn">
+                <i class="fab fa-youtube"></i>
+            </a>
+            <a href="https://www.istagram.com/faisalbezanjobaloch" target="_blank" class="social-btn">
+                <i class="fab fa-instagram"></i>
+            </a>
+        </div>
+        <p style="color: gray; font-size: xx-small;">&copy; 2026 Faisal Baloch | All Rights Reserved. <br>
+        Creafted By Aliyan Shaikh</p>
+    </footer>
+
+    
+    <div id="notification">Message Sent Successfully!</div>
+
+    
+    <script>
+       
+        const cursorDot = document.querySelector('[data-cursor-dot]');
+        const cursorOutline = document.querySelector('[data-cursor-outline]');
+
+        window.addEventListener("mousemove", function (e) {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+
+            
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: "forwards" });
+        });
+
+        
+        const menuToggle = document.getElementById('mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        const initThreeJS = () => {
+            const container = document.getElementById('canvas-container');
+            
+            
+            const scene = new THREE.Scene();
+            
+            
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 5;
+
+            
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            container.appendChild(renderer.domElement);
+
+            
+            const geometry = new THREE.IcosahedronGeometry(2.5, 0);
+            
+            
+            const material = new THREE.MeshBasicMaterial({ 
+                color: 0x00f3ff, 
+                wireframe: true,
+                transparent: true,
+                opacity: 0.3
+            });
+
+            
+            const sphere = new THREE.Mesh(geometry, material);
+            scene.add(sphere);
+
+            
+            const particlesGeometry = new THREE.BufferGeometry();
+            const particlesCount = 700;
+            const posArray = new Float32Array(particlesCount * 3);
+
+            for(let i = 0; i < particlesCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 15;
+            }
+
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.02,
+                color: 0xbc13fe
+            });
+            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particlesMesh);
+
+            
+            const animate = () => {
+                requestAnimationFrame(animate);
+
+                
+                sphere.rotation.x += 0.002;
+                sphere.rotation.y += 0.002;
+
+                
+                particlesMesh.rotation.y -= 0.001;
+
+                
+                sphere.rotation.x += (mouseY * 0.05 - sphere.rotation.x) * 0.05;
+                sphere.rotation.y += (mouseX * 0.05 - sphere.rotation.y) * 0.05;
+
+                renderer.render(scene, camera);
+            };
+
+            
+            let mouseX = 0;
+            let mouseY = 0;
+            
+            document.addEventListener('mousemove', (event) => {
+                mouseX = (event.clientX / window.innerWidth) - 0.5;
+                mouseY = (event.clientY / window.innerHeight) - 0.5;
+            });
+
+            
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+
+            animate();
+        };
+
+        
+        initThreeJS();
+
+        
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }
+            });
+        }, observerOptions);
+
+        
+        document.querySelectorAll('section').forEach(sec => {
+            sec.style.opacity = "0";
+            sec.style.transform = "translateY(20px)";
+            sec.style.transition = "all 0.8s ease-out";
+            observer.observe(sec);
+        });
+
+        
+        function showToast(message) {
+            const toast = document.getElementById("notification");
+            toast.innerText = message;
+            toast.className = "show";
+            setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+        }
+
+        
+        document.querySelector('.btn').addEventListener('click', () => {
+            
+            console.log("Navigation clicked");
+        });
+
+    </script>
+</body>
+</html>
